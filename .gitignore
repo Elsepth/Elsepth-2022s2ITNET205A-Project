@@ -1,0 +1,18 @@
+# Files matching any of the following definitions will be ignored by git when making a commit.
+
+# don't commit private authentication information
+proxy.py
+api_key.py
+
+# log files
+*.log
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
