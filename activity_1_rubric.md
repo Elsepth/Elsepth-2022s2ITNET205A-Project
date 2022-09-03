@@ -15,7 +15,7 @@
 Scrum Leader was suggested by Project Owner (Ying) and agreed on by all team members 
     
 #### Did you define any other agile team roles?  
-Recorder: (TBD) <TODO>
+Recorder: Cate
 Other Roles: Not yet. <TODO>    
     
 ### Team Communications Tools

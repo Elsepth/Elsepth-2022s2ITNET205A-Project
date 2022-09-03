@@ -8,3 +8,5 @@ USE_PROXY = False # set this to True if running on TAFE Network, else set False
 # WARNING! storing passwords in plaintext format in this manner is generally insecure. 
 # Do not allow unauthorised users to access this file!
 proxies = {'http': 'http://username:password@proxy.tafensw.edu.au:8080'}
+
+# Lily's file, this should never make it into the github repo
