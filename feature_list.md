@@ -14,6 +14,8 @@ graphical GUI UI/UX -
 - tkinter?
 - PySimpleGUI ? (includes Qt, Tkinter, WxPython, and Remi)
 
+
+
 - more data from the API return
 
 - more APIs
@@ -21,6 +23,9 @@ graphical GUI UI/UX -
 
 
 - metric/imperial/nautical toggle
+	- metres/litres
+	- miles/gallons
+	- nautical miles/tons??
 
 - transport mode (walking/car/train/ferry etc) toggles
 	- check what options are on mapquest
@@ -33,7 +38,8 @@ graphical GUI UI/UX -
 - implement hypersonic suborbital trip calculation
 - implement teleportation "calculation" (potential energy)
  
-
+- game
+-- geoguesser?
 
 
 
