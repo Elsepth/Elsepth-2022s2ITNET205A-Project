@@ -20,6 +20,7 @@ Recorder role assigned to Cate by acclamation.
 ### Scheduling Notes
 Lily free times: monday morning, tuesday morning, wednesday, thursday, friday afternoon, sunday
 Cate free times: Monday, Tuesday morning, Wednesday, Friday afternoon
+Ahmad free times: Tuesday Evening, Thursday Afternoon, Sunday Evening, Saturday evening
 
 ### Week 6 Sprint Goals
 - Cate - start on writing the presentation outline
