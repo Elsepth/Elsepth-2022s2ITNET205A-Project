@@ -4,8 +4,10 @@ import sys
 from PyQt6.QtWidgets import (
 	QApplication, 
 	QVBoxLayout,
+	QHBoxLayout,
 	QFormLayout,
 	QLineEdit,
+	QStatusBar,
 	QWidget,
 	QLabel,
 	QRadioButton,
@@ -29,7 +31,6 @@ import fetch
 # move(relative x, y)
 #helloMsg.move(60, 15)
 
-unit_system = "metric"
 
 
 
@@ -37,11 +38,12 @@ unit_system = "metric"
 class MainWindow(QWidget):
 	def __init__(self):
 		super().__init__()
+		self.unit_system = "metric"
 		self.setWindowTitle("MapQuest QVBoxLayout")
 		self.resize(270,110)
 		self.layout=QVBoxLayout()
 
-		self.layout.addWidget(QLabel("hello world",parent=self))
+		self.layout.addWidget(QLabel("Enter locations to find directions between",parent=self))
 
 
 		self.formOrig = QLineEdit()
@@ -58,24 +60,46 @@ class MainWindow(QWidget):
 
 		#layout.addLayout(formLayout)
 
-		self.layout.addWidget(QRadioButton("Metric",self))
-		self.layout.addWidget(QRadioButton("Imperial",self))
-
-		self.button_run = QPushButton("Run")
-		self.button_run.clicked.connect(self.func_run)
-		self.layout.addWidget(self.button_run)
+		self.unitsBox = QHBoxLayout()
+		self.button_metric = QRadioButton("Metric",self)
+		self.button_metric.value = "metric"
+		self.button_metric.toggled.connect(self.unitClicked)
+		self.button_metric.setChecked(True)
+		
+		self.button_imperial = QRadioButton("Imperial",self)
+		self.button_imperial.value = "imperial"
+		self.button_imperial.toggled.connect(self.unitClicked)
+		
+		self.unitsBox.addWidget(self.button_metric)
+		self.unitsBox.addWidget(self.button_imperial)
+		self.layout.addLayout(self.unitsBox)
 
 		self.button_defaults = QPushButton("Defaults")
 		self.button_defaults.clicked.connect(self.setDefaults)
 		self.layout.addWidget(self.button_defaults)
 
+		self.button_run = QPushButton("Run")
+		self.button_run.clicked.connect(self.func_run)
+		self.layout.addWidget(self.button_run)
+
 		self.output = QLabel("[Output]",parent=self)
+		self.output.setWordWrap(True)
 		self.layout.addWidget(self.output)
 
 	#	self.button_quit = QPushButton("Quit")
 	#	self.layout.addWidget(button_quit)
 	
 		self.setLayout(self.layout)
+
+		#self.statusBar = QStatusBar()
+		#self.setStatusBar(self.statusBar)
+	#	self.statusBar().showMessage("READY")
+
+	def unitClicked(self):
+		rb = self.sender()
+		if rb.isChecked():
+			print("Set unit system to " + rb.value)
+			self.unit_system = rb.value
 
 	def setDefaults(self):
 		self.formOrig.setText("Washington, D.C.")
@@ -89,6 +113,8 @@ class MainWindow(QWidget):
 	
 	def setOutput(self,foo):
 		self.output.setText(foo)
+
+
 
 	def func_run(self):
 		print("START")
@@ -108,25 +134,37 @@ class MainWindow(QWidget):
 
 		if self.d.json_status == 0:
 			print("JSON STATUS 0")
+
 			o = ("API Status: " + str(self.d.json_status) + " = A successful route call."
 			+ "\n============================================="
 			+ "\nDirections from " + (orig) + " to " + (dest)
 			+ "\nTrip Duration: " + (self.d.json_data["route"]["formattedTime"])
+			)
 			#print("Miles: " + str(json_data["route"]["distance"]))
 			#print("Fuel Used (Gal): " + str(json_data["route"]["fuelUsed"]))
 			#print("Kilometers: " + str((json_data["route"]["distance"])*1.61))
 			#print("Fuel Used (Ltr): " + str((json_data["route"]["fuelUsed"])*3.78))
-			+ "\nKilometers: " + str("{:.2f}".format((self.d.json_data["route"]["distance"])*1.61))
-			+ "\nFuel Used (Ltr): " + str("{:.2f}".format((self.d.json_data["route"]["fuelUsed"])*3.78))
-			+ "\n=============================================")
+			
+			if "metric" == self.unit_system:
+				o = o + ("\nKilometers: " + str("{:.2f}".format((self.d.json_data["route"]["distance"])*1.61))
+				+ "\nFuel Used (Ltr): " + str("{:.2f}".format((self.d.json_data["route"]["fuelUsed"])*3.78))
+				)
+			elif "imperial" == self.unit_system:
+				o = o + ("\nMiles: " + str("{:.2f}".format((self.d.json_data["route"]["distance"])))
+				+ "\nFuel Used (Gal): " + str("{:.2f}".format((self.d.json_data["route"]["fuelUsed"])))
+				)
+			o += "\n================== DIRECTIONS =================="
 
 			for each in self.d.json_data["route"]["legs"][0]["maneuvers"]:
-				e = ("\n" 
+				if "metric" == self.unit_system:
+					dist = " (" + str("{:.2f}".format((each["distance"])*1.61)) + " km)"
+				elif "imperial" == self.unit_system:
+					dist = " (" + str("{:.2f}".format((each["distance"]))) + " mi)"
+				e = ("\n⤷ " 
 				+ (each["narrative"]) 
-				+ " (" 
-				+ str("{:.2f}".format((each["distance"])*1.61))
-				+ " km)"
-				+ "\n=============================================")
+				+ dist
+				#+ "\n============================================="
+				)
 
 				o = o + e
 
