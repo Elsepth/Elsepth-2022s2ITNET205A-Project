@@ -1,18 +1,9 @@
 feature_list.md
 
-improved CLI UI/UX
-- ! can it be compatible with both linux (bash) and windows (powershell) terminals?
-	- basic CLI UI should be platform independent
-	- if not, do it for bash terminal only
-		- put in OS recognition and split the UI
-- colors, tables?
-- PyInquirer?
-	- I think this is cross-platform too
-
 graphical GUI UI/UX - 
-- PyQt ?
-- tkinter?
-- PySimpleGUI ? (includes Qt, Tkinter, WxPython, and Remi)
+- PyQt - IMPLEMENTED
+	- status bar
+	- scrolling directions area
 
 - more data from the API return
 
@@ -20,10 +11,11 @@ graphical GUI UI/UX -
 	- mapquest static map api
 
 
-- metric/imperial/nautical toggle
+- metric/imperial toggle - IMPLEMENTED
+	-nautical toggle
 
 - transport mode (walking/car/train/ferry etc) toggles
-	- check what options are on mapquest
+	- check what options are on mapquest - car/bike/walking; ferry, toll
 	- handle impossible journeys
 
 - web interface
