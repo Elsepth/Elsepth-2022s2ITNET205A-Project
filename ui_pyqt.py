@@ -1,7 +1,13 @@
 # ui_pyqt.py
 
 import sys
+
+from PyQt6.QtCore import (
+	Qt,
+	QSize,
+)
 from PyQt6.QtWidgets import (
+	QMainWindow,
 	QApplication, 
 	QVBoxLayout,
 	QHBoxLayout,
@@ -13,6 +19,7 @@ from PyQt6.QtWidgets import (
 	QRadioButton,
 	QPushButton,
 )
+from PyQt6.QtGui import QAction, QIcon
 
 import keys
 import proxy
@@ -33,6 +40,55 @@ import fetch
 
 
 
+# https://www.pythonguis.com/tutorials/pyqt6-signals-slots-events/
+class MainWindow2(QMainWindow): #extends QMainWindow
+	def __init__(self):
+		super().__init__() #calls __init__ from QMainWindow
+		self.setWindowTitle("MapQuest Again")
+	
+		self.label = QLabel("Enter locations to find directions between:")
+
+		self.formOrig = QLineEdit()
+		self.formOrig.setPlaceholderText("From")
+		self.formDest = QLineEdit()
+		self.formDest.setPlaceholderText("To")
+
+
+
+
+	#	button_defaults = QPushButton("Defaults")
+
+		self.button_run = QPushButton("Run")
+	#	self.button_run.setEnabled(False)
+		self.button_run.clicked.connect(self.slot_button_run)
+		# this sends a SIGNAL on click, which connects to a slot
+
+		layout = QVBoxLayout()
+		layout.addWidget(self.label)
+		layout.addWidget(self.formOrig)
+		layout.addWidget(self.formDest)
+	#	layout.addWidget(self.button_defaults)
+		layout.addWidget(self.button_run)
+
+		container = QWidget()
+		container.setLayout(layout)
+
+		self.setMinimumSize(QSize(400,300))
+	#	self.setMaximumSize(QSize(1000,1000))
+
+	#	self.setCentralWidget(self.button_run)
+		self.setCentralWidget(container)
+
+	#Slots, these accept signals
+	def slot_button_run(self):
+		print("RUN")
+
+
+
+	def slot_update(self):
+		#if both fields are filled then enable run
+	#	self.button_run.setEnabled(True)
+		pass
 
 
 class MainWindow(QWidget):
@@ -91,9 +147,11 @@ class MainWindow(QWidget):
 	
 		self.setLayout(self.layout)
 
-		#self.statusBar = QStatusBar()
-		#self.setStatusBar(self.statusBar)
-	#	self.statusBar().showMessage("READY")
+
+		self.setStatusBar(QStatusBar(self))
+	#	self.statusBar = QStatusBar(self)
+	#	self.setStatusBar(self.statusBar)
+	#	self.statusBar.showMessage("READY")
 
 	def unitClicked(self):
 		rb = self.sender()
@@ -189,7 +247,8 @@ class MainWindow(QWidget):
 
 def main():
 	app = QApplication(sys.argv)
-	window = MainWindow()
+#	window = MainWindow()
+	window = MainWindow2()
 	window.show()
 	sys.exit(app.exec())
 
