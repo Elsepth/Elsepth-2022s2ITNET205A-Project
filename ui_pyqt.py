@@ -128,8 +128,8 @@ class MainWindow2(QMainWindow):
         statusBar.showMessage("Ready")
 
     # slots, these accept signals
-    def slot_selection(self):
-        if True == self.radiobuttion_metric.isChecked():
+    def slot_unit_selection(self):
+        if True == self.radiobutton_metric.isChecked():
             self.unit_system = "metric"
         elif True == self.radiobutton_imperial.isChecked():
             self.unit_system = "imperial"
