@@ -278,13 +278,14 @@ class MainWindow(QWidget):
             # print("Kilometers: " + str((json_data["route"]["distance"])*1.61))
             # print("Fuel Used (Ltr): " + str((json_data["route"]["fuelUsed"])*3.78))
 
+        #HOTFIX: Fuel disabled because it seems that MAPQUEST API is no longer returning this data
             if "metric" == self.unit_system:
                 o = o + ("\nKilometers: " + str("{:.2f}".format((self.d.json_data["route"]["distance"]) * 1.61))
-                         + "\nFuel Used (Ltr): " + str("{:.2f}".format((self.d.json_data["route"]["fuelUsed"]) * 3.78))
+        #                 + "\nFuel Used (Ltr): " + str("{:.2f}".format((self.d.json_data["route"]["fuelUsed"]) * 3.78))
                          )
             elif "imperial" == self.unit_system:
                 o = o + ("\nMiles: " + str("{:.2f}".format((self.d.json_data["route"]["distance"])))
-                         + "\nFuel Used (Gal): " + str("{:.2f}".format((self.d.json_data["route"]["fuelUsed"])))
+        #                 + "\nFuel Used (Gal): " + str("{:.2f}".format((self.d.json_data["route"]["fuelUsed"])))
                          )
             o += "\n================== DIRECTIONS =================="
 
@@ -333,14 +334,14 @@ def func_output(orig, dest, fetched, unit_system):
              + "\nDirections from " + (orig) + " to " + (dest)
              + "\nTrip Duration: " + (data["route"]["formattedTime"])
              )
-
+	#HOTFIX: Fuel disabled because it seems that MAPQUEST API is no longer returning this data
         if "metric" == unit_system:
             o = o + ("\nKilometers: " + str("{:.2f}".format((data["route"]["distance"]) * 1.61))
-                     + "\nFuel Used (Ltr): " + str("{:.2f}".format((data["route"]["fuelUsed"]) * 3.78))
+    #                 + "\nFuel Used (Ltr): " + str("{:.2f}".format((data["route"]["fuelUsed"]) * 3.78))
                      )
         elif "imperial" == unit_system:
             o = o + ("\nMiles: " + str("{:.2f}".format((data["route"]["distance"])))
-                     + "\nFuel Used (Gal): " + str("{:.2f}".format((data["route"]["fuelUsed"])))
+     #                + "\nFuel Used (Gal): " + str("{:.2f}".format((data["route"]["fuelUsed"])))
                      )
         o += "\n================== DIRECTIONS =================="
 

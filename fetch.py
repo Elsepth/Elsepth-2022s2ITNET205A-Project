@@ -33,6 +33,7 @@ class Directions():
 			self.json_data = requests.get(url).json()
 
 		self.json_status = self.json_data["info"]["statuscode"]
+	#	print(self.json_data)
 	#	if self.json_status == 0:
 	#		print ("OK")
 	#	else:
