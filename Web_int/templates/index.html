@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Mapquest</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <img src="https://www.canva.com/design/DAFP6Xyz1PI/h3VODwXkOaNR_BQO3CS2PQ/view?utm_content=DAFP6Xyz1PI&utm_campaign=designshare&utm_medium=link&utm_source=homepage_design_menu">
+    <br>
+    <form action="greet" method="post">
+        {% for message in get_flashed_messages() %}
+             <p>{{ message }}</p>
+         {% endfor %}
+        <br>
+        <input type="text" name="dest_input">
+        <br>
+        <input type="submit" value="Go" id="dest">
+    </form>
+</body>
+</html>
