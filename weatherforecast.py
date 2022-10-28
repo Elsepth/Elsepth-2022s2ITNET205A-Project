@@ -22,8 +22,9 @@ while True:
 # Accessing Longitude, it resides in coord and its key is lon 
     longitude = weather_data['coord']['lon']
 # Printing Data
-    print("Temperature:%4.2d celcius"% (temp - 273.15))
-    print("Wind Speed:%4.2d m/s"%wind_speed)
-    print("Description : ",description)
-    print("Latitude :%4.2d degrees"%latitude)
-    print("Longitude :%4.2d degrees"%longitude)
+    print('\nTemperature(Celsius) : ',(temp - 273.15))
+    print('\nWind Speed (Meter per Second): ',wind_speed)
+    print('\nDescription : ',description)
+    print('\nLatitude : ',latitude)
+    print('\nLongitude : ',longitude)
+
