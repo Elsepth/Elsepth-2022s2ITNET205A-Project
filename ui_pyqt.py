@@ -92,6 +92,12 @@ class MainWindow2(QMainWindow):
         # displays status on hover
         self.button_run.setStatusTip("Get directions")
 
+        #this button toggles proxy
+        self.proxy = False
+        self.button_proxy = QPushButton("Enable Proxy")
+        self.button_proxy.clicked.connect(self.slot_button_proxy)
+        self.button_run.setStatusTip("toggle TAFE internet proxy")
+
         #this button toggles display of weather data
         self.button_weather = QPushButton("Show Weather")
         self.button_weather.clicked.connect(self.slot_button_weather)
@@ -115,6 +121,7 @@ class MainWindow2(QMainWindow):
         layout_buttons.addWidget(button_defaults)
         layout_buttons.addWidget(self.button_run)
         layout_buttons.addWidget(self.button_weather)
+        layout_buttons.addWidget(self.button_proxy)
 
         layout_radiobuttons = QHBoxLayout()
         layout_radiobuttons.addWidget(self.radiobutton_imperial)
@@ -178,6 +185,17 @@ class MainWindow2(QMainWindow):
     		self.button_weather.setText("Show Weather")
     		self.label_weather.hide()
 
+    def slot_button_proxy(self):
+    	if self.proxy == True:
+    		self.proxy = False
+    		print("PROXY OFF")
+    		self.button_proxy.setText("Enable Proxy")
+
+    	elif self.proxy == False:
+    		self.proxy = True
+    		print("PROXY ON")
+    		self.button_proxy.setText("Disable Proxy")
+
 
     def slot_button_run(self):
         print("RUN")
@@ -187,7 +205,7 @@ class MainWindow2(QMainWindow):
 
         #	self.d = fetch.Directions(orig,dest)
 
-        data_d = fetch.Directions(orig, dest)
+        data_d = fetch.Directions(orig, dest, self.proxy)
 
         self.label_output.setText(
             func_output(
@@ -203,9 +221,9 @@ class MainWindow2(QMainWindow):
         print(f"Getting weather for {city0} in {self.unit_system}")
         print(f"Getting weather for {city1} in {self.unit_system}")
         self.label_weather.setText(
-        	W.Weather.fetch(city0,self.unit_system)+
+        	W.Weather.fetch(city0,self.unit_system,self.proxy)+
         	"\n---\n"+
-        	W.Weather.fetch(city1,self.unit_system)
+        	W.Weather.fetch(city1,self.unit_system,self.proxy)
 		)
     #    self.label_weather.adjustSize()
 

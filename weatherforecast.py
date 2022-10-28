@@ -1,4 +1,5 @@
 import requests
+import proxy
  #Contributed by : Dean Sebial
  #city.list.json.gz is a requirement for this file 
 API_key = "d90447162b645108c9ffae4cd1442ee6"
@@ -34,9 +35,15 @@ class Weather():
     def __init__():
         pass
 
-    def fetch(city_name,units):
-        Final_url = base_url + "appid=" + API_key + "&q=" + city_name
-        weather_data = requests.get(Final_url).json()
+    def fetch(city_name,units,p):
+        url = base_url + "appid=" + API_key + "&q=" + city_name
+
+        if p == True:
+            print("USING PROXY")
+            weather_data = requests.get(url, proxies=proxy.proxies).json()
+        else:
+            weather_data = requests.get(url).json()
+
         # Accessing Temperature, temperature resides in main and its key is temp 
         temp = weather_data['main']['temp']
     # Accessing wind speed, it resides in wind and its key is speed

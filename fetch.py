@@ -19,7 +19,7 @@ except ImportError:
 	# proxies = {'http': 'http://username:password@proxy.tafensw.edu.au:8080'}
 
 class Directions():
-	def __init__(self, orig, dest):
+	def __init__(self, orig, dest, p):
 		print("initiating fetch_directions")
 		API_LINK = "http://www.mapquestapi.com/directions/v2/route?"
 		
@@ -27,7 +27,8 @@ class Directions():
 
 		print("fetching: " + url)
 
-		if proxy.USE_PROXY == True:
+		if p == True:
+			print("USING PROXY")
 			self.json_data = requests.get(url, proxies=proxy.proxies).json()
 		else:
 			self.json_data = requests.get(url).json()
